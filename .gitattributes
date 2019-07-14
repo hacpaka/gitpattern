@@ -1,0 +1,15 @@
+# Autodetect text files
+* text=auto
+
+*.sh eol=lf
+*.go eol=lf
+
+LICENSE eol=lf
+CHANGELOG eol=lf
+artisan eol=lf
+
+.gitattributes eol=lf
+.gitmodules eol=lf
+.gitignore eol=lf
+
+
