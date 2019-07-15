@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -81,25 +82,16 @@ func readPattern(name string) ([]int, error) {
 		panic(errors.New("invalid pattern"))
 	}
 
-	dir, err := os.Getwd()
+	path, err := filepath.Abs(name)
+	if iDebug {
+		fmt.Printf("Pattern file: %v\n", path)
+	}
+
 	if err != nil {
 		panic(err)
 	}
 
-	iPattern = dir + string(os.PathSeparator )+ "patterns" + string(os.PathSeparator) + name
-	if iDebug {
-		fmt.Printf("Pattern file: %v\n", iPattern)
-	}
-
-	if _, err := os.Stat(iPattern); err != nil {
-		if os.IsNotExist(err) {
-			panic(errors.New("invalid pattern"))
-		} else {
-			panic(err)
-		}
-	}
-
-	file, err := os.Open(iPattern)
+	file, err := os.Open(path)
 	if err != nil {
 		panic("invalid pattern")
 	}
